@@ -1,0 +1,276 @@
+/* Calendar Container */
+.calendar-container {
+    width: 75rem;
+    height: 46rem;
+    margin: 1rem auto;
+    padding: 1rem;
+    background: #c5e2ed;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    overflow-y: auto; 
+    transition: height 0.3s ease; 
+    text-overflow: ellipsis;
+  }
+  
+  /* Header Styles */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  .header h2 {
+    color: #0056b3;
+    font-weight: 900;
+    font-size: x-large;
+  }
+  
+  .header button {
+    background-color: #0056b3;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+  
+  .header button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Days Grid */
+  .days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr); /* Always 7 columns for days of the week */
+    gap: 0.2rem;
+  }
+  
+  /* Day Style */
+  .day {
+    padding: 0.1rem;
+    text-align: center;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+    position: relative;
+    height: 113px;
+    color: #0056b3;
+    font-weight: 600;
+    font-size:large;
+    border-radius: 1px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    min-height: auto;
+    overflow: hidden;
+    transition: height 0.3s ease; 
+    text-overflow: ellipsis;
+  }
+  
+  .day:hover {
+    background-color: #f0f8ff;
+  }
+
+  .day .event {
+    margin-top: 5px;
+    background-color:#f1cf9e;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 12px;
+    overflow: hidden; /* Prevents text overflow */
+    white-space: nowrap; /* Prevents wrapping */
+    text-overflow: ellipsis; /* Adds ellipsis if the event is too long */
+  }
+  
+  .day.has-event {
+    background-color: #ffffff;
+    border-color: #007bff;
+    padding-bottom: 10px; 
+    max-height: 150px;
+    overflow-y: auto;
+  }
+  .event-button {
+    display: block;
+    font-size:smaller;
+    margin: 2px;
+    padding: 0px;
+  
+    color: white;
+    border: none;
+    border-radius: 1px;
+    width: 154px;
+    text-align: center;
+    cursor: pointer;
+  }
+  
+  
+  .day.today {
+    background-color: #ffa33b;
+    border-color: #f9a825;
+    font-weight: bold;
+  }
+  
+  .day.today:hover {
+    background-color: #f1cf9e;
+  }
+
+  .dayhead{
+    display: flex;
+    margin-left: 10px;
+  }
+  
+  .weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr); /* Always 7 columns for weekdays */
+    background-color: #0056b3;
+    padding: 10px 0;
+    margin-bottom: 1rem;
+  }
+  
+  .weekday {
+    text-align: center;
+    font-weight: bold;
+    color: #c5e2ed;
+  }
+  
+  .blank {
+    border: none;
+    cursor: default;
+    color: #c5e2ed;
+  }
+  
+  .day.empty {
+    background-color: transparent;
+    border: none;
+    height: 70px;
+  }
+  
+  .event {
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+    color: #007bff;
+  }
+
+  .view-events-button{
+    background-color: #0056b3;
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 1200px) {
+    .calendar-container {
+      width: 55rem;
+      height: auto;
+    }
+  
+    .header h2 {
+      font-size: large;
+    }
+  
+    .header button {
+      font-size: 0.9rem;
+    }
+
+    .event-button {
+      display: block;
+      font-size: smaller;
+      margin: 1px;
+      padding: 0px;
+      background-color: #7ae6f6;
+      color: white;
+      border: none;
+      border-radius: 1px;
+      width: 94px;
+      text-align: center;
+      cursor: pointer;
+    }
+  
+    .days {
+      grid-template-columns: repeat(7, 1fr); /* Keep 7 columns */
+    }
+  
+    .day {
+      font-size: medium;
+      padding: 0.8rem;
+    }
+  }
+  
+  @media (max-width: 900px) {
+    .calendar-container {
+      width: 30rem;
+      padding: 1rem;
+      height: auto;
+    }
+  
+    .header h2 {
+      font-size: medium;
+    }
+  
+    .header button {
+      font-size: 0.85rem;
+      padding: 0.4rem 0.8rem;
+    }
+    .event-button {
+      display: block;
+      font-size: smaller;
+      margin: 1px;
+      padding: 0px;
+      background-color: #7ae6f6;
+      color: white;
+      border: none;
+      border-radius: 1px;
+      width: 50px;
+      text-align: center;
+      cursor: pointer;
+    }
+    .days {
+      grid-template-columns: repeat(7, 1fr); /* Keep 7 columns */
+    }
+  
+    .day {
+      font-size: small;
+      padding: 0.2rem;
+    }
+  }
+  
+  @media (max-width: 500px) {
+    .calendar-container {
+      width: 100px;
+      padding: 0.5rem;
+      height: auto;
+    }
+  
+    .header h2 {
+      font-size: small;
+    }
+  
+    .header button {
+      font-size: 0.8rem;
+      padding: 0.3rem 0.6rem;
+    }
+
+    .event-button {
+      display: block;
+      font-size: smaller;
+      margin: 1px;
+      padding: 0px;
+      background-color: #7ae6f6;
+      color: white;
+      border: none;
+      border-radius: 1px;
+      width: 19px;
+      text-align: center;
+      cursor: pointer;
+    }
+  
+    .days {
+      grid-template-columns: repeat(7, 1fr); /* Keep 7 columns */
+    }
+  
+    .day {
+      font-size: x-small;
+      padding: 0.4rem;
+    }
+  }
+  
