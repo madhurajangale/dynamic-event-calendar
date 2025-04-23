@@ -75,21 +75,35 @@ self.addEventListener('push', event => {
 
 // Sync
 self.addEventListener('sync', event => {
-  if (event.tag === 'sync-my-data') {
+  console.log('🔁 Sync event received:', event.tag);
+
+  // Accept both tags for testing
+  if (event.tag === 'sync-my-data' || event.tag === 'test-tag-from-devtools') {
     event.waitUntil(syncData());
   }
 });
 
 async function syncData() {
+  console.log("📡 syncData() called");
+
   const storedData = await getStoredFormData();
+  console.log("📄 Stored data to sync:", storedData);
+
   if (storedData) {
     await fetch('/api/submit', {
       method: 'POST',
       body: JSON.stringify(storedData),
       headers: { 'Content-Type': 'application/json' }
+    }).then(res => {
+      console.log('✅ Synced successfully:', res.status);
+    }).catch(err => {
+      console.error('❌ Sync failed:', err);
     });
+  } else {
+    console.log("ℹ️ No data to sync");
   }
 }
+
 
 // ✅ Simulate push manually using postMessage
 self.addEventListener('push', event => {
