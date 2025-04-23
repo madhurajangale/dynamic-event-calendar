@@ -83,6 +83,16 @@ self.addEventListener('sync', event => {
   }
 });
 
+async function getStoredFormData() {
+  // Simulated offline form data
+  return {
+    name: "Test User",
+    email: "testuser@example.com",
+    message: "This is a background sync test."
+  };
+}
+
+
 async function syncData() {
   console.log("📡 syncData() called");
 
