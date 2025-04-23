@@ -83,22 +83,24 @@ async function syncData() {
 
 // ✅ Simulate push manually using postMessage
 self.addEventListener('push', event => {
+  // Log it so we know it ran
+  console.log('🟢 Push event received:', event);
+
   const data = event.data?.json() || {
-    title: 'Test Notification',
-    body: 'This is a test push notification body.',
-    icon: '/web-app-manifest-192x192.png',
-    vibrate: [100, 50, 100]  // Optional vibration pattern
+    title: 'Fallback Title',
+    body: 'Fallback body',
+    icon: '/web-app-manifest-192x192.png'
   };
 
-  const options = {
-    body: data.body,
-    icon: data.icon,
-    badge: '/web-app-manifest-192x192.png',
-    vibrate: data.vibrate
-  };
+  console.log('🟢 Push data parsed:', data);
 
   event.waitUntil(
-    self.registration.showNotification(data.title, options)
+    self.registration.showNotification(data.title, {
+      body: data.body,
+      icon: data.icon,
+      badge: data.icon,
+      vibrate: data.vibrate || [100, 50, 100]
+    })
   );
 });
 
