@@ -82,19 +82,23 @@ async function syncData() {
 }
 
 // ✅ Simulate push manually using postMessage
-self.addEventListener("message", event => {
-  if (event.data?.type === "simulate-push") {
-    const data = event.data.payload || {
-      title: "Simulated Push",
-      body: "This is a test notification.",
-      icon: "/web-app-manifest-192x192.png"
-    };
+self.addEventListener('push', event => {
+  const data = event.data?.json() || {
+    title: 'Test Notification',
+    body: 'This is a test push notification body.',
+    icon: '/web-app-manifest-192x192.png',
+    vibrate: [100, 50, 100]  // Optional vibration pattern
+  };
 
-    self.registration.showNotification(data.title, {
-      body: data.body,
-      icon: data.icon,
-      badge: '/web-app-manifest-192x192.png',
-      vibrate: [100, 50, 100]
-    });
-  }
+  const options = {
+    body: data.body,
+    icon: data.icon,
+    badge: '/web-app-manifest-192x192.png',
+    vibrate: data.vibrate
+  };
+
+  event.waitUntil(
+    self.registration.showNotification(data.title, options)
+  );
 });
+
