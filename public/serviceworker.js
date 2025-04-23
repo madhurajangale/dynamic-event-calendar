@@ -27,21 +27,31 @@ self.addEventListener("activate", event => {
 
 // Fetch
 self.addEventListener('fetch', event => {
+  console.log('📦 Fetch intercepted:', event.request.url);
+
   event.respondWith(
     caches.match(event.request).then(cachedResponse => {
-      return cachedResponse || fetch(event.request).then(response => {
+      if (cachedResponse) {
+        console.log('✅ Served from cache:', event.request.url);
+        return cachedResponse;
+      }
+
+      return fetch(event.request).then(response => {
+        console.log('🌐 Fetched from network:', event.request.url);
         return caches.open(CACHE_NAME).then(cache => {
           cache.put(event.request, response.clone());
           return response;
         });
       });
-    }).catch(() => {
+    }).catch(err => {
+      console.log('❌ Fetch failed, maybe offline?', err);
       if (event.request.destination === 'document') {
         return caches.match('/offline.html');
       }
     })
   );
 });
+
 
 // Push
 self.addEventListener('push', event => {
